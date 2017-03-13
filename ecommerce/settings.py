@@ -20,7 +20,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')^^w8i(59ur(ov$_q5x50_irlkl)@6*&5#4mw)0n+_a*m%a1p-'
+with open('/etc/secret_key.txt') as f:
+    SECRET_KEY = f.read().strip()
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -139,8 +141,12 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_REDIRECT_URL = '/'
 
-SOCIAL_AUTH_FACEBOOK_KEY = '1905131209711803'
-SOCIAL_AUTH_FACEBOOK_SECRET = '77527332e8950df301c5f9197e6b3bef'
+with open('/etc/fb_key.txt') as f:
+    SOCIAL_AUTH_FACEBOOK_KEY = f.read().strip()
+
+with open('/etc/fb_secret.txt') as f:
+    SOCIAL_AUTH_FACEBOOK_SECRET  = f.read().strip()
+
 
 # replace prior database setting to use postgresql on heroku
 import dj_database_url
