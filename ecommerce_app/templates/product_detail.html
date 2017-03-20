@@ -7,9 +7,9 @@
     <div class="col-md-8">
       <div class="panel panel-default">
         <div class="panel-body">
-          <h3>I will create a website for you with Django and ReactJS</h3>
+          <h3>{{ product.title }}</h3>
           <hr/>
-          <img src="{% static 'img/product.png' %}" class="img-repsonsive center-block">
+          <img src="/media/{{ product.photo }}" class="img-repsonsive center-block">
         </div>
       </div>
       <div class="panel panel-default">
@@ -17,7 +17,7 @@
           <h4>About This Product</h4>
         </div>
         <div class="panel-body">
-          <p>I will create your website in just 5 days.</p>
+          <p>{{ product.description }}</p>
         </div>
       </div>
       <div class="panel panel-default">
@@ -44,15 +44,15 @@
     <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-body">
-          <button type="button" class="btn btn-success btn-block">Order Now ($5)</button>
+          <button type="button" class="btn btn-success btn-block">Order Now (${{ product.price }})</button>
         </div>
       </div>
       <div class="panel panel-default">
         <div class="panel-body">
-          <img src="{% static 'img/avatar.png' %}" class="img-circle center-block" height="100" width="100">
-          <h4 class="text-center">Dave Morrison</h4>
+          <img src="{% if product.user.profile %} {{ product.user.profile.avatar }} {% else %} {% static 'img/avatar.png' %} {% endif %}" class="img-circle center-block" height="100" width="100">
+          <h4 class="text-center">{{ product.user.username }}</h4>
           <hr/>
-          <p>I have 2 years of experience in Python/Django and 3 months in ReactJS. I'm a kind of a cool guy! Haha</p>
+          <p>{{ product.user.profile.about }}</p>
         </div>
       </div>
     </div>
