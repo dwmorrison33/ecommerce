@@ -35,12 +35,17 @@
                   {{ user.get_full_name|default:user.username }} <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
+                  <li><a href="{% url 'create_product' %}">Create a Product listing</a></li>
+                  <li><a href="{% url 'my_products' %}">My Products</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="{% url 'profile' user.username %}">My Profile</a></li>
+                  <li role="separator" class="divider"></li>
                   <li><a href="{% url 'auth:logout' %}?next={{request.path}}">Logout</a></li>
                 </ul>
               </li>
             {% else %}
               <li>
-                <a href="{% url 'social:begin' 'facebook' %}?next={{request.path}}">Login</a>
+                <a href="{% url 'social:begin' 'facebook' %}?next={{request.path}}">Login with Facebook</a>
               </li>
             {% endif %}
           </ul>
