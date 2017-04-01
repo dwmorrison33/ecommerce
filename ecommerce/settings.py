@@ -163,3 +163,8 @@ DATABASES['default'].update(db_from_env)
 # this is the upload directory for products
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+### BRAINTREE INFO ###
+BRAINTREE_MERCHANT_ID = '2v32gh7fsqqgzgpx'
+BRAINTREE_PUBLIC_KEY = '7h3k8bq5dtsx4vmm'
+BRAINTREE_PRIVATE_KEY = '7e001e6330f9eacca20a4b1d8060edc6'

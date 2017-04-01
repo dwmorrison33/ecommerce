@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block page %}
+  <h1 style="margin-bottom: 30px">Products Purchased</h1>
+  <div class="panel panel-default">
+    <table class="table table-bordered table-striped">
+      <thead class="bg-success">
+        <tr>
+          <th></th>
+          <th>Title</th>
+          <th>Seller</th>
+          <th>Price</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for purchase in purchases %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{% url 'product_detail' purchase.product.id %}">{{ purchase.product.title }}</a></td>
+            <td><a href="{% url 'profile' purchase.product.user.username %}">{{ purchase.product.user.username }}</a></td>
+            <td>{{ purchase.product.price }}</td>
+            <td>{{ purchase.time }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

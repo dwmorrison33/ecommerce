@@ -16,14 +16,19 @@
   </head>
   <body>
     <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="navbar-inverse">
+      <div class="navbar-inverse" style="background-color: #036f96;">
         <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="/"><img src="{% static 'img/logo.png' %}" height="23"></a>
+            <a class="navbar-brand" href="/"><img src="{% static 'img/favicon.jpeg' %}" height="23"></a>
           </div>
-          <form class="navbar-form navbar-left" role="search">
+          <form class="navbar-form navbar-left" role="search" method="GET" action="/search/">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Find products">
+              <div class="input-group">
+                <input type="text" name="title" class="form-control" placeholder="Find services">
+                <span class="input-group-btn">
+                  <button class="btn btn-sucess">Search</button>
+                </span>
+              </div>
             </div>
           </form>
           <ul class="nav navbar-nav navbar-right">
@@ -37,6 +42,9 @@
                 <ul class="dropdown-menu">
                   <li><a href="{% url 'create_product' %}">Create a Product listing</a></li>
                   <li><a href="{% url 'my_products' %}">My Products</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="{% url 'products-sold' %}">Products Sold</a></li>
+                  <li><a href="{% url 'products-bought' %}">Products Bought</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="{% url 'profile' user.username %}">My Profile</a></li>
                   <li role="separator" class="divider"></li>
@@ -54,11 +62,11 @@
       <div id="category">
         <div class="container">
           <ul class="nav navbar-nav">
-            <li><a href="#">Electronics</a></li>
-            <li><a href="#">Collectibles</a></li>
-            <li><a href="#">Finance</a></li>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Travel</a></li>
+            <li><a href="/category/electronics">Electronics</a></li>
+            <li><a href="/category/collectibles">Collectibles</a></li>
+            <li><a href="/category/finance">Finance</a></li>
+            <li><a href="/category/home">Home</a></li>
+            <li><a href="/category/travel">Travel</a></li>
           </ul>
         </div>
       </div>

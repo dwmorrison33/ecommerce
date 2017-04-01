@@ -32,3 +32,19 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
+class Purchase(models.Model):
+    product = models.ForeignKey(Product)
+    buyer = models.ForeignKey(User)
+    time = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.product.title
+
+class Review(models.Model):
+    product = models.ForeignKey(Product)
+    user = models.ForeignKey(User)
+    content = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.content

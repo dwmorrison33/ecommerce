@@ -14,7 +14,7 @@
       </div>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4>About This Product</h4>
+          <h4>Description of Product</h4>
         </div>
         <div class="panel-body">
           <p>{{ product.description }}</p>
@@ -22,18 +22,34 @@
       </div>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4>Review</h4>
+          <h4>Reviews</h4>
         </div>
+
+        {% if show_post_review %}
+          <div class="panel-body">
+            <form method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+                <textarea name="content" class="form-control"></textarea>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-sucess">Submit</button>
+              </div>
+            </form>
+          </div>
+
+        {% endif %}
+
         <ul class="list-group">
-          {% for i in '123' %}
+          {% for review in reviews %}
             <li class="list-group-item">
               <div class="row">
                 <div class="col-md-2">
-                  <img src="{% static 'img/avatar.png' %}" class="img-circle center-block" height="60" width="60">
+                  <img src="{{ review.user.profile.avatar }}" class="img-circle center-block" height="60" width="60">
                 </div>
                 <div class="col-md-10">
-                  <h5>Dave Morrison</h5>
-                  <p>Great job on building my website. This guy does an  awesome job!</p>
+                  <h5>{{ review.user.username }}</h5>
+                  <p>{{ review.content }}</p>
                 </div>
               </div>
             </li>
@@ -44,7 +60,33 @@
     <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-body">
-          <button type="button" class="btn btn-success btn-block">Order Now (${{ product.price }})</button>
+
+          {% if user and not user.is_anonymous %}
+            <form method="POST" action="{% url 'create_purchase' %}">
+              {% csrf_token %}
+              <div id="payment-form"></div>
+              <input name="product_id" value="{{ product.id }}" hidden>
+              <button type="submit" class="btn btn-success btn-block">Pay Now (${{ product.price }})</button>
+            </form>
+
+            <script src="https://js.braintreegateway.com/js/braintree-2.30.0.min.js"></script>
+            <script>
+              $(document).ready(function() {
+                braintree.setup("{{ client_token }}", "dropin", {
+                  container: "payment-form",
+                  paypal: {
+                    singleUse: true,
+                    amount: "{{ product.price }}",
+                    currency: 'USD'
+                  }
+                });
+              });
+
+            </script>
+          {% else %}
+            You need to login to order buy this product!
+          {% endif %}
+
         </div>
       </div>
       <div class="panel panel-default">
